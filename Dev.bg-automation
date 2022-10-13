@@ -1,3 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+
+PATH = "C:\Program Files (x86)\chromedriver.exe"
+driver = webdriver.Chrome(PATH)
+
+jobs = ["Quality Assurance Intern", "Quality Assurance Junior", "QA Intern", "QA Junior"]
+i = 0
+
+for job in jobs:
+    driver.get("https://dev.bg/")
+    time.sleep(1)
+    driver.maximize_window()
+    search = driver.find_elements('xpath', '/html/body/main/section/div/div[1]/form/input[1]')
+    search[0].send_keys(job, Keys.RETURN)
+    if i == 3:
+        break
+    driver.execute_script("window.open()")
+    i += 1
+    driver.switch_to.window(driver.window_handles[i])
